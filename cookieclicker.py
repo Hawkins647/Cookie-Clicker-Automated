@@ -1,19 +1,16 @@
 import pyautogui
 import time
-import pytesseract
-
-
-pytesseract.pytesseract.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
 
 
 class AutoCookieClicker:
 
-    def __init__(self, cookie_image, cookie_number_image, grandma_image, farm_image, mine_image):
+    def __init__(self, cookie_image, cookie_number_image, grandma_image, farm_image, mine_image, factory_image):
         self.cookie_image = cookie_image
         self.cookie_number_image = cookie_number_image
         self.grandma_image = grandma_image
         self.farm_image = farm_image
         self.mine_image = mine_image
+        self.factory_image = factory_image
 
         self.main()
 
@@ -61,7 +58,18 @@ class AutoCookieClicker:
 
                 mine_location = self.buy_mine_location()
                 self.move_click(mine_location)
+                pyautogui.moveTo(cookie_location)
+                for i in range(0, 10005):
+                    pyautogui.click()
 
+                factory_location = self.buy_factory_location()
+                self.move_click(factory_location)
+
+                pyautogui.moveTo(cookie_location)
+                for i in range(0, 10005):
+                    pyautogui.click()
+
+                self.move_click(factory_location)
 
     def move_click(self, location):
         pyautogui.moveTo(location)
@@ -80,8 +88,13 @@ class AutoCookieClicker:
         farm_location = pyautogui.locateOnScreen(self.farm_image)
         return farm_location
 
+    def buy_factory_location(self):
+        factory_location = pyautogui.locateOnScreen(self.factory_image)
+        return factory_location
+
 
     """Scrapped this section of code due to it only working around half of the time - feel free to have a go at fixing it yourself!"""
+
     # def get_current_cookies(self):
     #     """Find the number of cookies currently owned."""
     #
@@ -109,4 +122,4 @@ class AutoCookieClicker:
 
 
 if __name__ == "__main__":
-    AutoCookieClicker("images\\cookie_image.png", "images\\cookie_number_image.png", "images\\grandma_image.png", "images\\farm_image.png", "images\\mine_image.png")
+    AutoCookieClicker("images\\cookie_image.png", "images\\cookie_number_image.png", "images\\grandma_image.png", "images\\farm_image.png", "images\\mine_image.png", "images\\factory_image.png")
